@@ -60,7 +60,7 @@ public class IncompleteBST
 							node.leftChild = newNode;
 							if(value != '?' && ((node.value != '?' && value > node.value) || value < node.leftRestrict)) throw new RuntimeException("Not a valid node");
 							newNode.leftRestrict = node.leftRestrict;
-							newNode.RightRestrict = (node.value != '?') ? node.leftRestrict : node.value; 
+							newNode.RightRestrict = (node.value != '?') ? node.value : node.RightRestrict; 
 
 						} else {
 
@@ -84,8 +84,14 @@ public class IncompleteBST
 
 		char getLeftChar(Node node){
 
-			if(node.leftChild == null) return node.value;
+			if(node.leftChild == null) return node.leftRestrict;
 			else return getMax(node.leftChild);
+
+		}
+		
+		char getRightChar(Node node){
+			if(node.rightChild == null) return node.RightRestrict;
+			else return getMin(node.rightChild);
 
 		}
 
@@ -94,11 +100,7 @@ public class IncompleteBST
 			else return getMax(node.rightChild);
 		}
 
-		char getRightChar(Node node){
-			if(node.rightChild == null) return node.value;
-			else return getMin(node.rightChild);
-
-		}
+		
 
 		char getMin(Node node) {
 			if(node.leftChild == null) return node.value;
@@ -140,6 +142,29 @@ public class IncompleteBST
 			if(oldSize == nodes.size())
 				return "";
 		}
+		
+		for(Node node : myTree.nodes){
+			
+			if(node.value == '?'){
+				
+				char start = myTree.getLeftChar(node);
+				char end = myTree.getRightChar(node);
+				
+				String ans = "";
+				
+				System.out.println(start + "   " + end);
+				
+				for(char i = start; i <= end; i ++)
+					ans += i;
+				
+				return ans;
+				
+			}
+			
+		}
+		
+		return "";
+		
 	}
 
 	// BEGIN KAWIGIEDIT TESTING
@@ -192,22 +217,22 @@ public class IncompleteBST
 		String[] p0;
 		String p1;
 
-		// ----- test 0 -----
-		//		p0 = new String[]{"? 3", "K 1", "K 2", "K 4", "K 8", "K 16", "K 32", "K 64", "K 128"};
-		//		p1 = "LMNOPQRSTUVWXYZ";
-		//		all_right = KawigiEdit_RunTest(0, p0, true, p1) && all_right;
-		//		// ------------------
-		//
+//		 ----- test 0 -----
+				p0 = new String[]{"? 3", "K 1", "K 2", "K 4", "K 8", "K 16", "K 32", "K 64", "K 128"};
+				p1 = "LMNOPQRSTUVWXYZ";
+				all_right = KawigiEdit_RunTest(0, p0, true, p1) && all_right;
+				// ------------------
+		
 		////		// ----- test 1 -----
-		//		p0 = new String[]{"B 1","? 2"};
-		//		p1 = "AB";
-		//		all_right = KawigiEdit_RunTest(1, p0, true, p1) && all_right;
+				p0 = new String[]{"B 1","? 2"};
+				p1 = "AB";
+				all_right = KawigiEdit_RunTest(1, p0, true, p1) && all_right;
 		////		// ------------------
 		////
 		////		// ----- test 2 -----
-		//		p0 = new String[]{"V 1","? 3"};
-		//		p1 = "WXYZ";
-		//		all_right = KawigiEdit_RunTest(2, p0, true, p1) && all_right;
+				p0 = new String[]{"V 1","? 3"};
+				p1 = "WXYZ";
+				all_right = KawigiEdit_RunTest(2, p0, true, p1) && all_right;
 		//		// ------------------
 		//
 		//		// ----- test 3 -----
