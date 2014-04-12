@@ -82,6 +82,29 @@ public class IncompleteBST
 			return false;
 		}
 		
+		char getLeftChar(Node node){
+			
+			if(node.leftChild == null) return node.value;
+			else return getMax(node.leftChild);
+			
+		}
+
+		char getMax(Node node) {
+			if(node.rightChild == null) return node.value;
+			else return getMax(node.rightChild);
+		}
+		
+		char getRightChar(Node node){
+			if(node.rightChild == null) return node.value;
+			else return getMin(node.rightChild);
+			
+		}
+
+		 char getMin(Node node) {
+			if(node.leftChild == null) return node.value;
+			else return getMin(node.leftChild);
+		}
+		
 		
 
 	}
