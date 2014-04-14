@@ -9,23 +9,30 @@ public class ColorfulCoinsEasy
 {
 	public String isPossible(int[] values)
 	{
-		int sum = 0;
-		if(values.length == 1)
-			return "Possible";
-		for(int i = values.length -1 ; i >=1 ; i--){
+		int choices = 0;
+		int[] divs = new int[values.length - 1];
+		
+		for(int i = 1; i < values.length; i++){
 			
-			for(int j = i - 1; j >=0; j--){
-				
-				sum+=(2*values[j]);
-				
-			}
-			
-			if(sum >= values[i])
-				return "Impossible";
-			
-			sum=0;
+			divs[i-1] = (values[i]/values[i-1]) - 1;
 			
 		}
+		
+		Arrays.sort(divs);
+		
+		for(int i = 1; i < divs.length; i++){
+			
+			if(i!= i -1)
+				choices = divs[i];
+			
+			if(choices < (i+1))
+				return "Impossible";
+			
+		}
+		
+		System.out.println(Arrays.toString(values));
+		System.out.println(Arrays.toString(divs));
+	
 		
 		
 		
