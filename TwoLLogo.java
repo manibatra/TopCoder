@@ -10,6 +10,49 @@ public class TwoLLogo
 	
 	public long countWays(String[] grid)
 	{
+		//length set as 900 to account for each point in the grid
+		//x and y to store the x and y coordinate of a point
+		int[] x = new int[900];
+		int[] y = new int[900];
+		//to store the max valid height and width possible at the point
+		int[] maxH= new int[900];
+		int[] maxW = new int[900];
+		
+		//ptr is the common id in all of the above arrays
+		int ptr = 0;
+		for(int a = 0; a < grid.length; a++){
+			
+			for(int b = 0; b < grid[0].length(); b++){
+				
+				if(grid[a].charAt(b) == '.'){
+					
+					int i = 0;
+					
+					while((a-i) > 0 && grid[a-i].charAt(b) != '#'){
+						i++;
+						
+					}
+					maxH[ptr] = i;
+					i = 0;
+					while((b+i) < grid[0].length() && grid[a].charAt(b+i) != '#'){
+						i++;
+					}
+					maxW[ptr]=i;
+					i=0;
+					if(maxH[ptr] > 1 && maxW[ptr] > 1){
+						
+						x[ptr] = a;
+						y[ptr] = b;
+						ptr++;
+						
+					}
+				}
+				
+				
+			}
+			
+		}
+		
 		
 		
 		
