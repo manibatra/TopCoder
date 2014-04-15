@@ -26,12 +26,24 @@ public class TwoLLogo
 			
 		}
 		
+		public boolean equals(Point o){
+			
+			if(this.row == o.row && this.column == o.column)
+				return true;
+			else
+				return false;
+			
+			
+		}
+		
 		
 	}
 	public long countWays(String[] grid)
 	{
 		
 		List<HashSet<Point>> valids = new ArrayList<HashSet<Point>>();
+		
+		long result  = 0;
 		
 		for(int i = 0; i <= grid.length - 2; i++){
 			
@@ -59,17 +71,49 @@ public class TwoLLogo
 			
 		}
 		
-		return 0;
+		for(int i = 0; i < valids.size() - 1; i++){
+			
+			for(int j = i+1; j < valids.size(); j++){
+				
+				boolean intersection = checkIntersection(valids.get(i), valids.get(j));
+				if(!intersection)
+					result += 1;
+				
+			}
+			
+		}
+		
+		return result;
 		
 	}
 	
+	private boolean checkIntersection(HashSet<Point> logoOne,
+			HashSet<Point> logoTwo) {
+		
+		for(Point x : logoOne){
+			
+			for(Point y : logoTwo){
+				
+				if(x.row == y.row && x.column == y.column)
+					return true;
+				
+			}
+			
+		}
+		
+		
+		return false;
+	}
+
 	private HashSet<Point> checkForBlack(Point upperLeft, Point lowerRight, String[] grid) {
 		
-		System.out.println(upperLeft.toString()+" and "+lowerRight.toString());
+		//System.out.println(upperLeft.toString()+" and "+lowerRight.toString());
 		
-		String[] local = Arrays.copyOf(grid, grid.length);
+		//String[] local = Arrays.copyOf(grid, grid.length);
 		HashSet<Point> ans = new HashSet<Point>();
-		
+//		ans.add(lowerRight);
+//		ans.add(upperLeft);
+//		
 		if(grid[upperLeft.row].charAt(upperLeft.column) == '#')
 			return null;
 		
@@ -83,9 +127,9 @@ public class TwoLLogo
 			else {
 				
 				ans.add(new Point(i, upperLeft.column));
-				char[] temp  = local[i].toCharArray();
-				temp[upperLeft.column] = 'V';
-				local[i] = new String(temp);
+//				char[] temp  = local[i].toCharArray();
+//				temp[upperLeft.column] = 'V';
+//				local[i] = new String(temp);
 				
 			}
 			
@@ -98,22 +142,22 @@ public class TwoLLogo
 				return null;
 			else {
 				ans.add(new Point(lowerRight.row, i));
-				char[] temp  = local[lowerRight.row].toCharArray();
-				temp[i] = 'V';
-				local[lowerRight.row] = new String(temp);
+//				char[] temp  = local[lowerRight.row].toCharArray();
+//				temp[i] = 'V';
+//				local[lowerRight.row] = new String(temp);
 				
 			}
 			
 			
 		}
 		
-		for(String x : local){
-			
-			System.out.println(x);
-			
-		}
-		
-		local = null;
+//		for(String x : local){
+//			
+//			System.out.println(x);
+//			
+//		}
+//		
+//		local = null;
 
 		return ans;
 	}
@@ -169,9 +213,9 @@ public class TwoLLogo
 		long p1;
 		
 		// ----- test 0 -----
-//		p0 = new String[]{"....","...."};
-//		p1 = 1L;
-//		all_right = KawigiEdit_RunTest(0, p0, true, p1) && all_right;
+		p0 = new String[]{"....","...."};
+		p1 = 1L;
+		all_right = KawigiEdit_RunTest(0, p0, true, p1) && all_right;
 		// ------------------
 		
 //		// ----- test 1 -----
@@ -181,46 +225,46 @@ public class TwoLLogo
 //		// ------------------
 //		
 //		// ----- test 2 -----
-//		p0 = new String[]{"..#.","#.#.","....","..#."};
-//		p1 = 4L;
-//		all_right = KawigiEdit_RunTest(2, p0, true, p1) && all_right;
+		p0 = new String[]{"..#.","#.#.","....","..#."};
+		p1 = 4L;
+		all_right = KawigiEdit_RunTest(2, p0, true, p1) && all_right;
 //		// ------------------
 //		
 //		// ----- test 3 -----
-//		p0 = new String[]{"..",".."};
-//		p1 = 0L;
-//		all_right = KawigiEdit_RunTest(3, p0, true, p1) && all_right;
+		p0 = new String[]{"..",".."};
+		p1 = 0L;
+		all_right = KawigiEdit_RunTest(3, p0, true, p1) && all_right;
 //		// ------------------
 //		
 //		// ----- test 4 -----
-//		p0 = new String[]{".#.#","....",".#.#","...."};
-//		p1 = 34L;
-//		all_right = KawigiEdit_RunTest(4, p0, true, p1) && all_right;
+		p0 = new String[]{".#.#","....",".#.#","...."};
+		p1 = 34L;
+		all_right = KawigiEdit_RunTest(4, p0, true, p1) && all_right;
 //		// ------------------
 //		
 //		// ----- test 5 -----
-//		p0 = new String[]{"##############","##############","#.############","#.############","#.############","#.############","#.############","#.############","#.#####.######","#.#####.######","#.#####.######","#....##.######","#######.######","#######.######","#######.######","#######.######","#######.######","#######.######","#######......#","##############"};
-//		p1 = 1350L;
-//		all_right = KawigiEdit_RunTest(5, p0, true, p1) && all_right;
+		p0 = new String[]{"##############","##############","#.############","#.############","#.############","#.############","#.############","#.############","#.#####.######","#.#####.######","#.#####.######","#....##.######","#######.######","#######.######","#######.######","#######.######","#######.######","#######.######","#######......#","##############"};
+		p1 = 1350L;
+		all_right = KawigiEdit_RunTest(5, p0, true, p1) && all_right;
 //		// ------------------
 //		
 //		// ----- test 6 -----
-//		p0 = new String[]{"#......",".#....#",".#.#...","#....#.",".##..#.",".#.....",".....#.",".#.#...",".#...#.","..##..."};
-//		p1 = 2386L;
-//		all_right = KawigiEdit_RunTest(6, p0, true, p1) && all_right;
+		p0 = new String[]{"#......",".#....#",".#.#...","#....#.",".##..#.",".#.....",".....#.",".#.#...",".#...#.","..##..."};
+		p1 = 2386L;
+		all_right = KawigiEdit_RunTest(6, p0, true, p1) && all_right;
 //		// ------------------
 //		
 //		// ----- test 7 -----
-//		p0 = new String[]{"...#..........................","..............................","..............................","..................#...#.......","..................#...........","..............................","...........#..................","..............................",".....#..#.....................",".......................#......","..................#.....#.....","..............................","..............................","..............................","..............................","..#...........................","..............................","..............................","..............................","#............................#","..............................",".....#.........#............#.","..............................",".........................#....",".#............................",".............#................","..............................","..............................",".......................#......",".............#................"};
-//		p1 = 5020791386L;
-//		all_right = KawigiEdit_RunTest(7, p0, true, p1) && all_right;
+		p0 = new String[]{"...#..........................","..............................","..............................","..................#...#.......","..................#...........","..............................","...........#..................","..............................",".....#..#.....................",".......................#......","..................#.....#.....","..............................","..............................","..............................","..............................","..#...........................","..............................","..............................","..............................","#............................#","..............................",".....#.........#............#.","..............................",".........................#....",".#............................",".............#................","..............................","..............................",".......................#......",".............#................"};
+		p1 = 5020791386L;
+		all_right = KawigiEdit_RunTest(7, p0, true, p1) && all_right;
 //		// ------------------
 //		
-//		if (all_right) {
-//			System.out.println("You're a stud (at least on the example cases)!");
-//		} else {
-//			System.out.println("Some of the test cases had errors.");
-//		}
+		if (all_right) {
+			System.out.println("You're a stud (at least on the example cases)!");
+		} else {
+			System.out.println("Some of the test cases had errors.");
+		}
 	}
 	// END KAWIGIEDIT TESTING
 }
