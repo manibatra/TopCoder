@@ -28,7 +28,7 @@ public class TwoLLogo
 					
 					int i = 0;
 					
-					while((a-i) > 0 && grid[a-i].charAt(b) != '#'){
+					while((a-i) >= 0 && grid[a-i].charAt(b) != '#'){
 						i++;
 						
 					}
@@ -38,7 +38,6 @@ public class TwoLLogo
 						i++;
 					}
 					maxW[ptr]=i;
-					i=0;
 					if(maxH[ptr] > 1 && maxW[ptr] > 1){
 						
 						x[ptr] = a;
@@ -62,7 +61,7 @@ public class TwoLLogo
 		
 		
 		
-		return 0;
+		return result;
 		
 	}
 	
@@ -71,7 +70,42 @@ public class TwoLLogo
 	private long twoPoints(int a, int b, int h1, int w1, int c, int d, int h2,
 			int w2) {
 	
-		return 0;
+		//this step is added to remove the possibility of negative lengths, abs could have been taken
+		if(a > c || ((a==c) && (b > d))){
+			
+			return twoPoints(c, d, h2, w2, a, b, h1, w1);
+			
+		}
+		
+		long result = (h1-1)*(w1 - 1)*(h2-1)*(w2-1);
+		
+		if(a==c){
+			// we have assured that b < d
+			
+			int x = d - b + 1; //this should be the max length of the L on the left
+			
+			result -= (h1-1)*Math.max((w1-x + 1), 0)*(h2-1)*(w2-1);
+			
+			
+		}else if(b == d){
+			
+			//we have assured that a < c
+			
+			int y = c - a + 1;//this should be the max height of the L with h2
+			result -= (h1-1)*(w1-1)*Math.max((h2-y+1), 0)*(w2-1);
+			
+			
+		}else if(d > b){
+			
+			
+			int x = d - b + 1; //this should be the max length of the L on the left
+			int y = c - a + 1;//this should be the max height of the L with h2
+			result -= (h1-1)*Math.max((w1-x + 1), 0)*Math.max((h2-y+1), 0)*(w2-1);
+			
+		}
+		
+		
+		return result;
 	}
 
 
