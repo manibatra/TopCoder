@@ -68,9 +68,9 @@ public class TwoLLogo
 	
 	
 
-	private long twoPoints(int i, int j, int k, int l, int m, int n, int o,
-			int p) {
-		// TODO Auto-generated method stub
+	private long twoPoints(int a, int b, int h1, int w1, int c, int d, int h2,
+			int w2) {
+	
 		return 0;
 	}
 
