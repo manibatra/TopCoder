@@ -44,7 +44,11 @@ public class TwoLLogo
 						Point upperLeft = new Point(i, k);
 						Point lowerRight = new Point(j, l);
 						
-						boolean valid = checkForBlack(upperLeft, lowerRight, grid);
+						HashSet<Point> valid = checkForBlack(upperLeft, lowerRight, grid);
+						if(valid == null)
+							continue;
+						else
+							valids.add(valid);
 						
 					}
 					
@@ -59,23 +63,26 @@ public class TwoLLogo
 		
 	}
 	
-	private boolean checkForBlack(Point upperLeft, Point lowerRight, String[] grid) {
+	private HashSet<Point> checkForBlack(Point upperLeft, Point lowerRight, String[] grid) {
 		
 		System.out.println(upperLeft.toString()+" and "+lowerRight.toString());
 		
 		String[] local = Arrays.copyOf(grid, grid.length);
+		HashSet<Point> ans = new HashSet<Point>();
 		
 		if(grid[upperLeft.row].charAt(upperLeft.column) == '#')
-			return false;
+			return null;
 		
 		if(grid[lowerRight.row].charAt(lowerRight.column) == '#')
-			return false;
+			return null;
 		
 		for(int i = upperLeft.row; i <= lowerRight.row; i++){
 			
 			if(grid[i].charAt(upperLeft.column) == '#')
-				return false;
+				return null;
 			else {
+				
+				ans.add(new Point(i, upperLeft.column));
 				char[] temp  = local[i].toCharArray();
 				temp[upperLeft.column] = 'V';
 				local[i] = new String(temp);
@@ -88,8 +95,9 @@ public class TwoLLogo
 		for(int i = lowerRight.column; i >= upperLeft.column; i--){
 			
 			if(grid[lowerRight.row].charAt(i) == '#')
-				return false;
+				return null;
 			else {
+				ans.add(new Point(lowerRight.row, i));
 				char[] temp  = local[lowerRight.row].toCharArray();
 				temp[i] = 'V';
 				local[lowerRight.row] = new String(temp);
@@ -107,7 +115,7 @@ public class TwoLLogo
 		
 		local = null;
 
-		return true;
+		return ans;
 	}
 
 	// BEGIN KAWIGIEDIT TESTING
@@ -161,15 +169,15 @@ public class TwoLLogo
 		long p1;
 		
 		// ----- test 0 -----
-		p0 = new String[]{"....","...."};
-		p1 = 1L;
-		all_right = KawigiEdit_RunTest(0, p0, true, p1) && all_right;
+//		p0 = new String[]{"....","...."};
+//		p1 = 1L;
+//		all_right = KawigiEdit_RunTest(0, p0, true, p1) && all_right;
 		// ------------------
 		
 //		// ----- test 1 -----
-//		p0 = new String[]{".##..","...#.",".#.#.","#...#"};
-//		p1 = 3L;
-//		all_right = KawigiEdit_RunTest(1, p0, true, p1) && all_right;
+		p0 = new String[]{".##..","...#.",".#.#.","#...#"};
+		p1 = 3L;
+		all_right = KawigiEdit_RunTest(1, p0, true, p1) && all_right;
 //		// ------------------
 //		
 //		// ----- test 2 -----
