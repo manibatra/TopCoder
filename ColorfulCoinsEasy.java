@@ -30,11 +30,6 @@ public class ColorfulCoinsEasy
 			
 		}
 		
-		System.out.println(Arrays.toString(values));
-		System.out.println(Arrays.toString(divs));
-	
-		
-		
 		
 		return "Possible";
 		
