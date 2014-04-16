@@ -9,7 +9,7 @@ public class LongLongTripDiv2
 {
 	public String isAble(long D, int T, int B)
 	{
-
+		//be mindful of the conversions
 		long t = (long)T;
 		long b = (long)B;
 		for(long i = 0;  i <= T; i ++){
