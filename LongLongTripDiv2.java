@@ -9,9 +9,12 @@ public class LongLongTripDiv2
 {
 	public String isAble(long D, int T, int B)
 	{
-		for(int i = 0; i <= T; i ++){
+
+		long t = (long)T;
+		long b = (long)B;
+		for(long i = 0;  i <= T; i ++){
 			
-			if((T-i)*1 + i*B == D){
+			if(((t-i)*1 + i*b) == D){
 				
 				return "Possible";
 				
