@@ -25,6 +25,7 @@ public class FlowerGardens {
 					
 					for(int k = 0; k < height.length && !blocked;k++){
 						
+						if(!used[k]){
 							if(height[j] > height[k]) {
 								
 								if(wilt[k] >= bloom[j] && bloom[k] <= wilt[k])
@@ -32,7 +33,7 @@ public class FlowerGardens {
 								
 							}
 						
-						
+						}
 					}
 					
 					if(!blocked){
@@ -50,10 +51,12 @@ public class FlowerGardens {
 			
 			
 				}
-				result[i]=currentMax;
-				used[currentMaxPos] = true;
+				
 		
 			}
+			
+			result[i]=currentMax;
+			used[currentMaxPos] = true;
 
 		}
 		
