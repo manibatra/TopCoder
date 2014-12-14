@@ -2,7 +2,6 @@ package practice;
 
 import java.util.Arrays;
 
-import javax.xml.crypto.dsig.Transform;
 
 public class InverseHaar1D {
 
@@ -30,13 +29,17 @@ public class InverseHaar1D {
 
 	private int[] getOriginal(int[] transformedData, int L, int[] result) {
 		
+		//base case of the recursion
 		if(L==0)
 			return result;
 		
+		//Unchanged array = Total Length - workable length
 		int workableLength = (int) (transformedData.length/Math.pow(2, L-1));
 		
+		//We start moving indices from 0 and divide, to form pairs
 		int divide = (workableLength/2);
 		
+		//So that the result array is not tempered with while performing calcultations
 		int[] temp = Arrays.copyOf(result, result.length);
 		
 		int ptr = 0;
@@ -46,6 +49,7 @@ public class InverseHaar1D {
 			int x;
 			int y;
 			
+			//x+y = A, x-y = B => x = A+B/2, y = A-B/2
 			x = (temp[i] + temp[divide + i])/2;
 			y = (temp[i] - temp[divide + i])/2;
 			
@@ -55,10 +59,11 @@ public class InverseHaar1D {
 			
 		}
 		
+		//copying the unchanged data
 		int i = 0;
 		while(ptr < result.length){
 			
-			result[ptr++] = transformedData[workableLength + i];
+			result[ptr++] = temp[workableLength + i];
 			i++;
 			
 		}
