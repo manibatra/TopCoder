@@ -32,7 +32,7 @@ public class MatchCounts {
 
 	}
 
-
+	//the solution is good but for comp. program. the variables name should be shorter
 	private static void startTree(String[] ability, int person,String path) {
 
 		person++;
