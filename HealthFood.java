@@ -6,5 +6,12 @@ public class HealthFood {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public int[] selectMeals(int[] protein, int[] carbs, int[] fat, String[] dietPlans) {
+		
+		
+		
+		
+	}
 
 }
