@@ -10,7 +10,7 @@ public class HealthFood {
 	public int[] selectMeals(int[] protein, int[] carbs, int[] fat, String[] dietPlans) {
 		
 		
-		
+		return new int[]{};
 		
 	}
 
