@@ -7,7 +7,14 @@ public class HealthFood {
 
 	}
 	
-	//TO DO : Read the question
+//	//TO DO : 'C' = high carbs
+//	'c' = low carbs
+//			'P' = high protein
+//			'p' = low protein
+//			'F' = high fat
+//			'f' = low fat
+//			'T' = high calorie
+//			't' = low calorie
 	public int[] selectMeals(int[] protein, int[] carbs, int[] fat, String[] dietPlans) {
 		
 		
