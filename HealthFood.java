@@ -83,6 +83,19 @@ public class HealthFood {
 			
 		}
 		
+		private int getValue(String element){
+			
+			if(element.equals("carbs"))
+				return this.carbs;
+			else if(element.equals("protein"))
+				return this.protein;
+			else if(element.equals("fat"))
+				return this.fat;
+			else 
+				return this.total;
+			
+		}
+		
 		
 
 
@@ -91,34 +104,19 @@ public class HealthFood {
 
 	public int[] selectMeals(int[] protein, int[] carbs, int[] fat, String[] dietPlans) {
 
-		int[] cal = new int[protein.length];
-
-		for(int i = 0; i < cal.length; i++){
-
-			cal[i] = (protein[i] * 5) + (carbs[i] * 5) + (fat[i] * 9);
-
-		}
 		
-		List<Item> sP = new ArrayList<Item>();
-		List<Item> sC = new ArrayList<Item>();
-		List<Item> sF = new ArrayList<Item>();
-		List<Item> sT = new ArrayList<Item>();
-
+		List<Item> foods = new ArrayList<Item>();
+		
+		
 		for(int i = 0; i < protein.length; i++){
 			
-			sP.add(new Item(i, protein[i]));
-			sC.add(new Item(i, carbs[i]));
-			sF.add(new Item(i, fat[i]));
-			sT.add(new Item(i, cal[i]));
 
+			foods.add(new Item(i, protein[i], carbs[i], fat[i]));
 
 			
 		}
 		
-		Collections.sort(sP);
-		Collections.sort(sC);
-		Collections.sort(sF);
-		Collections.sort(sT);
+		
 
 		int[] result = new int[dietPlans.length];
 
@@ -128,10 +126,10 @@ public class HealthFood {
 
 			Vector<Integer> testing = new Vector<Integer>();
 
-			for(int j = 0; j < cal.length; j++)
+			for(int j = 0; j < protein.length; j++)
 				testing.add(j);
 
-			result[i] = testThis(sP, sC, sF, sT, dietPlans[i], 0,  testing);
+			result[i] = testThis(foods, dietPlans[i], 0,  testing);
 
 
 		}
@@ -141,37 +139,44 @@ public class HealthFood {
 
 	}
 
-	private int testThis(List<Item> sP, List<Item> sC, List<Item> sF,
-			List<Item> sT, String dietPlan, int i, Vector<Integer> testing
+	private int testThis(List<Item> foods, String dietPlan, int i, Vector<Integer> testing
 			) {
 		
 		Vector<Integer> temp = new Vector<Integer>();
+		List<Item> tempFood = new ArrayList<Item>();
+		
+		for(int j = 0; j < foods.size(); j++) {
+			
+			if(testing.contains(j))
+				tempFood.add(foods.get(j));
+			
+		}
 		switch(dietPlan.charAt(i)){
 
 		case 'C':
-			findMax(sC, temp);
+			findMax(tempFood, temp, cC, "carbs");
 			break;
 		case 'P':
-			findMax(sP, temp);
+			findMax(tempFood, temp, cP, "protein");
 			break;
 		case 'F':
-			findMax(sF, temp);
+			findMax(tempFood, temp, cF, "fat");
 			break;
 		case 'T':
-			findMax(sT, temp);
+			findMax(tempFood, temp, cT, "total");
 			break;
 			
 		case 'c':
-			findMin(sC, temp);
+			findMin(tempFood, temp, cC, "carbs");
 			break;
 		case 'p':
-			findMin(sP, temp);
+			findMin(tempFood, temp, cP, "protein");
 			break;
 		case 'f':
-			findMin(sF, temp);
+			findMin(tempFood, temp, cF, "fat");
 			break;
 		case 't':
-			findMin(sT, temp);
+			findMax(tempFood, temp, cT, "total");
 			break;		
 
 		}
@@ -181,54 +186,43 @@ public class HealthFood {
 		
 		if(temp.size() > 1 && i < (dietPlan.length() -1)){
 			
-			List<Item> tsP = new ArrayList<Item>();
-			List<Item> tsC = new ArrayList<Item>();
-			List<Item> tsF = new ArrayList<Item>();
-			List<Item> tsT = new ArrayList<Item>();
-			
-			for(int j = 0; j < temp.size(); j++){
-				
-				tsP.add(e)
-				
-			}
 
 			
-			return testThis(sP, sC, sF, sT, dietPlan, i+1, temp );
+			return testThis(foods, dietPlan, i+1, temp );
 			
 		}
 
 		
-		return 0;
+		return temp.get(0);
 	}
 
-	private void findMin(List<Item> list, Vector<Integer> temp) {
+	private void findMin(List<Item> list, Vector<Integer> temp, Comparator<Item> c , String element) {
 		
-		int min = list.get(0).value;
+		Collections.sort(list, c);
+		int min = list.get(0).getValue(element);
 		for(Item x : list){
 			
-			if(min == x.value)
+			if(min == x.getValue(element))
 				temp.add(x.index);
 			else
 				break;
 				
-		}
-		
+		}		
 	}
 
-	private void findMax(List<Item> list, Vector<Integer> temp) {
+	private void findMax(List<Item> list, Vector<Integer> temp, Comparator<Item> c ,String element) {
 		
-		int max = list.get(list.size() - 1).value;
+		Collections.sort(list, c);
 		Collections.reverse(list);
+		int max = list.get(0).getValue(element);
 		for(Item x : list){
 			
-			if(max == x.value)
+			if(max == x.getValue(element))
 				temp.add(x.index);
 			else
 				break;
 				
-		}
-		Collections.reverse(list);
-				
+		}				
 	}
 
 
