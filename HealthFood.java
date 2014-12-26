@@ -2,6 +2,7 @@ package practice;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
 
@@ -20,23 +21,69 @@ public class HealthFood {
 	//			'f' = low fat
 	//			'T' = high calorie
 	//			't' = low calorie
-
-	public class Item implements Comparable<Item> {
-
-		private int index;
-		private int value;
-		
-		public Item(int index, int value){
-			this.index = index;
-			this.value = value;
-		}
+	
+	Comparator<Item> cP = new Comparator<Item>() {
 
 		@Override
-		public int compareTo(Item i) {
-			if(this.value >	i.value) return 1;
-			if(this.value < i.value) return 0;
+		public int compare(Item i1, Item i2) {
+			if(i1.protein > i2.protein) return 1;
+			if(i2.protein > i1.protein) return -1;
 			return 0;
 		}
+	};
+	
+	Comparator<Item> cC = new Comparator<Item>() {
+
+		@Override
+		public int compare(Item i1, Item i2) {
+			if(i1.carbs > i2.carbs) return 1;
+			if(i2.carbs > i1.carbs) return -1;
+			return 0;
+		}
+	};
+	
+	
+	Comparator<Item> cF = new Comparator<Item>() {
+
+		@Override
+		public int compare(Item i1, Item i2) {
+			if(i1.fat > i2.fat) return 1;
+			if(i2.fat > i1.fat) return -1;
+			return 0;
+		}
+	};
+	
+	Comparator<Item> cT = new Comparator<Item>() {
+
+		@Override
+		public int compare(Item i1, Item i2) {
+			if(i1.total > i2.total) return 1;
+			if(i2.total > i1.total) return -1;
+			return 0;
+		}
+	};
+	
+	
+	
+
+	public class Item {
+
+		private int index;
+		private int protein;
+		private int carbs;
+		private int fat;
+		private int total; 
+		
+		public Item( int index, int protein, int carbs, int fat){
+			this.index = index;
+			this.protein = protein;
+			this.carbs = carbs;
+			this.total = (protein + carbs) * 5 + (fat * 9);
+			
+			
+		}
+		
+		
 
 
 
