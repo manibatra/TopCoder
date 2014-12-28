@@ -5,7 +5,7 @@ public class FibonacciSequence {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(new FibonacciSequence().numFibs(377, 1000));
+		System.out.println(new FibonacciSequence().numFibs(7, 7));
 
 	}
 	
