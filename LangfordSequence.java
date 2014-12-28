@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class LangfordSequence {
 
 	public static void main(String[] args) {
-		System.out.println(Arrays.toString(new LangfordSequence().getFirst(new int[]{8, 0, 12, 6, 2, 4, 3, 13})));
+		System.out.println(Arrays.toString(new LangfordSequence().getFirst(new int[]{0})));
 
 	}
 
@@ -14,7 +14,7 @@ public class LangfordSequence {
 	public int[] getFirst(int[] a) {
 
 
-		if(a.length == 1)
+		if(a.length == 1 && a[0] != 0)
 			return new int[]{};
 
 
@@ -24,7 +24,11 @@ public class LangfordSequence {
 		Arrays.sort(a);
 
 		placeOthers(Arrays.copyOf(result, result.length), a, 0);
-		return this.result;
+		
+		if(result[0] == -1)
+			return new int[]{};
+		else
+			return this.result;
 
 
 
@@ -43,7 +47,7 @@ public class LangfordSequence {
 				temp[y] = a[i];
 
 				if(i == (a.length - 1)){
-					System.out.println(Arrays.toString(temp));
+					//System.out.println(Arrays.toString(temp));
 					if(this.result[0] == -1)
 						this.result = temp;
 					else if(checkLex( this.result, temp)){
